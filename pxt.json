@@ -1,0 +1,11 @@
+{
+    "name": "Gigo",
+    "description": "",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "main.ts",
+        "README.md"
+    ]
+}
