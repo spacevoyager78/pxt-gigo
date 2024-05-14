@@ -50,9 +50,9 @@ enum DIRECTIONS {
 }
 
 enum LED_STATES {
-    //% block="Άναψε"
+    //% block="άναψε"
     HIGH = 1,
-    //% block="Σβήσε"
+    //% block="σβήσε"
     LOW = 0
 }
 
