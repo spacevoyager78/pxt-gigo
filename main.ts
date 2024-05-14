@@ -58,31 +58,6 @@ enum LED_STATES {
 
 //% weight=0 color=#3CB371 icon="\uf2db" block="Gigo"
 namespace spacevoyager78_gigo {
-    //% blockId="Motor" block="Κινητήρας θύρα %port φορά %Direction ταχύτητα %speed"
-    //% speed.min=0 speed.max=100 speed.defl=0
-    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
-    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
-    //% port.defl=MOTOR_PORTS.E
-    
-    export function Motor(port: MOTOR_PORTS, direction: DIRECTIONS, speed: number): void {
-        let directionPin = AnalogPin.P0, speedPin = AnalogPin.P0;
-        if (port == MOTOR_PORTS.E) {
-            directionPin = AnalogPin.P15;
-            speedPin = AnalogPin.P16;
-        } else if (port == MOTOR_PORTS.F) {
-            directionPin = AnalogPin.P13;
-            speedPin = AnalogPin.P14;
-        } else if (port == MOTOR_PORTS.G) {
-            directionPin = AnalogPin.P12;
-            speedPin = AnalogPin.P2;
-        } else if (port == MOTOR_PORTS.H) {
-            directionPin = AnalogPin.P1;
-            speedPin = AnalogPin.P8;
-        }
-        pins.analogWritePin(directionPin, direction);
-        pins.analogWritePin(speedPin, pins.map(speed, 0, 100, 0, 1023));       
-    }
-    
     //% blockID="LEDrgb" block="LED θύρα %port %state"
     //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
     //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
@@ -105,6 +80,46 @@ namespace spacevoyager78_gigo {
             ledPin = DigitalPin.P1;
         }
         pins.digitalWritePin(ledPin, state);
+    }
+    
+    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %port ενεργοποίηση"
+    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
+    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
+    //% port.defl=BUTTON_PORTS.E
+    export function ButtonActivate(port: BUTTON_PORTS): void {
+        let buttonPin = DigitalPin.P0;
+        if (port == BUTTON_PORTS.A) {
+            buttonPin = DigitalPin.P20;
+        } else if (port == BUTTON_PORTS.E) {
+            buttonPin = DigitalPin.P16;
+        } else if (port == BUTTON_PORTS.F) {
+            buttonPin = DigitalPin.P14;
+        } else if (port == BUTTON_PORTS.G) {
+            buttonPin = DigitalPin.P2;
+        } else if (port == BUTTON_PORTS.H) {
+            buttonPin = DigitalPin.P8;
+        }
+        pins.setPull(buttonPin, PinPullMode.PullUp);
+    }
+    
+    //% blockId="ButtonPressed" block="Κουμπί πίεσης θύρα %port είναι πατημένο"
+    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
+    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
+    //% port.defl=BUTTON_PORTS.E
+    export function ButtonIsPressed(port: BUTTON_PORTS): boolean {
+        let buttonPin = DigitalPin.P0;
+        if (port == BUTTON_PORTS.A) {
+            buttonPin = DigitalPin.P20;
+        } else if (port == BUTTON_PORTS.E) {
+            buttonPin = DigitalPin.P16;
+        } else if (port == BUTTON_PORTS.F) {
+            buttonPin = DigitalPin.P14;
+        } else if (port == BUTTON_PORTS.G) {
+            buttonPin = DigitalPin.P2;
+        } else if (port == BUTTON_PORTS.H) {
+            buttonPin = DigitalPin.P8;
+        }
+        return pins.digitalReadPin(buttonPin) == 0;
     }
     
     //% blockId="ServoAngle" block="Σέρβο ακροδέκτης %pin γωνία %angle"
@@ -134,43 +149,27 @@ namespace spacevoyager78_gigo {
         pins.servoWritePin(servoPin, angle);
     }
     
-    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %port ενεργοποίηση"
+    //% blockId="Motor" block="Κινητήρας θύρα %port φορά %Direction ταχύτητα %speed"
+    //% speed.min=0 speed.max=100 speed.defl=0
     //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
     //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
-    //% port.defl=BUTTON_PORTS.E
-    export function ButtonActivate(port: BUTTON_PORTS): void {
-        let buttonPin = DigitalPin.P0;
-        if (port == BUTTON_PORTS.A) {
-            buttonPin = DigitalPin.P20;
-        } else if (port == BUTTON_PORTS.E) {
-            buttonPin = DigitalPin.P16;
-        } else if (port == BUTTON_PORTS.F) {
-            buttonPin = DigitalPin.P14;
-        } else if (port == BUTTON_PORTS.G) {
-            buttonPin = DigitalPin.P2;
-        } else if (port == BUTTON_PORTS.H) {
-            buttonPin = DigitalPin.P8;
+    //% port.defl=MOTOR_PORTS.E
+    export function Motor(port: MOTOR_PORTS, direction: DIRECTIONS, speed: number): void {
+        let directionPin = AnalogPin.P0, speedPin = AnalogPin.P0;
+        if (port == MOTOR_PORTS.E) {
+            directionPin = AnalogPin.P15;
+            speedPin = AnalogPin.P16;
+        } else if (port == MOTOR_PORTS.F) {
+            directionPin = AnalogPin.P13;
+            speedPin = AnalogPin.P14;
+        } else if (port == MOTOR_PORTS.G) {
+            directionPin = AnalogPin.P12;
+            speedPin = AnalogPin.P2;
+        } else if (port == MOTOR_PORTS.H) {
+            directionPin = AnalogPin.P1;
+            speedPin = AnalogPin.P8;
         }
-        pins.setPull(buttonPin, PinPullMode.PullUp);
-    }
-    
-    //% blockId="ButtonPressed" block="Κουμπί πίεσης θύρα %port είναι πατημένο;"
-    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
-    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
-    //% port.defl=BUTTON_PORTS.E
-    export function ButtonIsPressed(port: BUTTON_PORTS): boolean {
-        let buttonPin = DigitalPin.P0;
-        if (port == BUTTON_PORTS.A) {
-            buttonPin = DigitalPin.P20;
-        } else if (port == BUTTON_PORTS.E) {
-            buttonPin = DigitalPin.P16;
-        } else if (port == BUTTON_PORTS.F) {
-            buttonPin = DigitalPin.P14;
-        } else if (port == BUTTON_PORTS.G) {
-            buttonPin = DigitalPin.P2;
-        } else if (port == BUTTON_PORTS.H) {
-            buttonPin = DigitalPin.P8;
-        }
-        return pins.digitalReadPin(buttonPin) == 0;
+        pins.analogWritePin(directionPin, direction);
+        pins.analogWritePin(speedPin, pins.map(speed, 0, 100, 0, 1023));       
     }
 }
