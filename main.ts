@@ -24,6 +24,17 @@ enum SERVO_PINS {
     P16
 }
 
+enum LINE_FOLLOWER_PINS {
+    //% block="1"
+    P1,
+    //% block="8"
+    P8,
+    //% block="12"
+    P12,
+    //% block="2"
+    P2
+}
+
 enum LED_PORTS {
     B,
     C,
@@ -82,10 +93,10 @@ namespace spacevoyager78_gigo {
         pins.digitalWritePin(ledPin, state);
     }
     
-    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %port ενεργοποίηση"
-    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
-    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
-    //% port.defl=BUTTON_PORTS.E
+    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %pin ενεργοποίηση"
+    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
+    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
+    //% pin.defl=BUTTON_PORTS.E
     export function ButtonActivate(port: BUTTON_PORTS): void {
         let buttonPin = DigitalPin.P0;
         if (port == BUTTON_PORTS.A) {
@@ -122,10 +133,28 @@ namespace spacevoyager78_gigo {
         return pins.digitalReadPin(buttonPin) == 0;
     }
     
-    //% blockId="ServoAngle" block="Σέρβο ακροδέκτης %pin γωνία %angle"
+    //% blockId="LineFollowed" block="Αισθητήρας γραμμής θύρα %pin πατάει γραμμή"
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
-    //% pin.defl=SERVO_PORTS.P1
+    //% pin.defl=LINE_FOLLOWER_PINS.P1
+    export function LineFollowed(pin: LINE_FOLLOWER_PINS): boolean {
+        let linePin = AnalogPin.P0;
+        if (pin == LINE_FOLLOWER_PINS.P1) {
+            linePin = AnalogPin.P1;
+        } else if (pin == LINE_FOLLOWER_PINS.P8) {
+            linePin = AnalogPin.P8;
+        } else if (pin == LINE_FOLLOWER_PINS.P12) {
+            linePin = AnalogPin.P12;
+        } else if (pin == LINE_FOLLOWER_PINS.P2) {
+            linePin = AnalogPin.P2;
+        }
+        return pins.digitalReadPin(linePin) == 1;
+    }
+    
+    //% blockId="ServoAngle" block="Σέρβο θύρα %pin γωνία %angle"
+    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
+    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
+    //% pin.defl=SERVO_PINS.P1
     //% angle.min=0 angle.max=180 angle.defl=180
     export function ServoState(pin: SERVO_PINS, angle: number): void {
         let servoPin = AnalogPin.P0;
@@ -149,7 +178,7 @@ namespace spacevoyager78_gigo {
         pins.servoWritePin(servoPin, angle);
     }
     
-    //% blockId="Motor" block="Κινητήρας θύρα %port φορά %Direction ταχύτητα %speed"
+    //% blockId="Motor" block="Κινητήρας θύρα %port φορά %direction ταχύτητα %speed"
     //% speed.min=0 speed.max=100 speed.defl=0
     //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
     //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
