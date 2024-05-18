@@ -13,7 +13,15 @@ enum SERVO_PINS {
     //% block="12"
     P12,
     //% block="2"
-    P2
+    P2,
+    //% block="13"
+    P13,
+    //% block="14"
+    P14,
+    //% block="15"
+    P15,
+    //% block="16"
+    P16
 }
 
 enum LINE_FOLLOWER_PINS {
@@ -24,7 +32,15 @@ enum LINE_FOLLOWER_PINS {
     //% block="12"
     P12,
     //% block="2"
-    P2
+    P2,
+    //% block="13"
+    P13,
+    //% block="14"
+    P14,
+    //% block="15"
+    P15,
+    //% block="16"
+    P16
 }
 
 enum LED_PORTS {
@@ -139,6 +155,14 @@ namespace spacevoyager78_gigo {
             linePin = AnalogPin.P12;
         } else if (pin == LINE_FOLLOWER_PINS.P2) {
             linePin = AnalogPin.P2;
+        } else if (pin == LINE_FOLLOWER_PINS.P13) {
+            linePin = AnalogPin.P13;
+        } else if (pin == LINE_FOLLOWER_PINS.P14) {
+            linePin = LINE_FOLLOWER_PINS.P14;
+        } else if (pin == LINE_FOLLOWER_PINS.P15) {
+            linePin = AnalogPin.P15;
+        } else if (pin == LINE_FOLLOWER_PINS.P16) {
+            linePin = AnalogPin.P16;
         }
         return pins.digitalReadPin(linePin) == 1;
     }
