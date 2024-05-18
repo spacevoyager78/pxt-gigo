@@ -158,7 +158,7 @@ namespace spacevoyager78_gigo {
         } else if (pin == LINE_FOLLOWER_PINS.P13) {
             linePin = AnalogPin.P13;
         } else if (pin == LINE_FOLLOWER_PINS.P14) {
-            linePin = LINE_FOLLOWER_PINS.P14;
+            linePin = AnalogPin.P14;
         } else if (pin == LINE_FOLLOWER_PINS.P15) {
             linePin = AnalogPin.P15;
         } else if (pin == LINE_FOLLOWER_PINS.P16) {
