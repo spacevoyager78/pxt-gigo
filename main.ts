@@ -146,23 +146,23 @@ namespace spacevoyager78_gigo {
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
     //% pin.defl=LINE_FOLLOWER_PINS.P1
     export function LineIsFollowed(pin: LINE_FOLLOWER_PINS): boolean {
-        let linePin = AnalogPin.P0;
+        let linePin = DigitalPin.P0;
         if (pin == LINE_FOLLOWER_PINS.P1) {
-            linePin = AnalogPin.P1;
+            linePin = DigitalPin.P1;
         } else if (pin == LINE_FOLLOWER_PINS.P8) {
-            linePin = AnalogPin.P8;
+            linePin = DigitalPin.P8;
         } else if (pin == LINE_FOLLOWER_PINS.P12) {
-            linePin = AnalogPin.P12;
+            linePin = DigitalPin.P12;
         } else if (pin == LINE_FOLLOWER_PINS.P2) {
-            linePin = AnalogPin.P2;
+            linePin = DigitalPin.P2;
         } else if (pin == LINE_FOLLOWER_PINS.P13) {
-            linePin = AnalogPin.P13;
+            linePin = DigitalPin.P13;
         } else if (pin == LINE_FOLLOWER_PINS.P14) {
-            linePin = AnalogPin.P14;
+            linePin = DigitalPin.P14;
         } else if (pin == LINE_FOLLOWER_PINS.P15) {
-            linePin = AnalogPin.P15;
+            linePin = DigitalPin.P15;
         } else if (pin == LINE_FOLLOWER_PINS.P16) {
-            linePin = AnalogPin.P16;
+            linePin = DigitalPin.P16;
         }
         return pins.digitalReadPin(linePin) == 1;
     }
