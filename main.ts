@@ -13,15 +13,7 @@ enum SERVO_PINS {
     //% block="12"
     P12,
     //% block="2"
-    P2,
-    //% block="13"
-    P13,
-    //% block="14"
-    P14,
-    //% block="15"
-    P15,
-    //% block="16"
-    P16
+    P2
 }
 
 enum LINE_FOLLOWER_PINS {
@@ -93,10 +85,10 @@ namespace spacevoyager78_gigo {
         pins.digitalWritePin(ledPin, state);
     }
     
-    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %pin ενεργοποίηση"
-    //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
-    //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
-    //% pin.defl=BUTTON_PORTS.E
+    //% blockId="ButtonPullup" block="Κουμπί πίεσης θύρα %port ενεργοποίηση"
+    //% port.fieldEditor="gridpicker" port.fieldOptions.columns=4
+    //% port.fieldOptions.tooltips="false" port.fieldOptions.width="300"
+    //% port.defl=BUTTON_PORTS.E
     export function ButtonActivate(port: BUTTON_PORTS): void {
         let buttonPin = DigitalPin.P0;
         if (port == BUTTON_PORTS.A) {
@@ -137,7 +129,7 @@ namespace spacevoyager78_gigo {
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
     //% pin.defl=LINE_FOLLOWER_PINS.P1
-    export function LineFollowed(pin: LINE_FOLLOWER_PINS): boolean {
+    export function LineIsFollowed(pin: LINE_FOLLOWER_PINS): boolean {
         let linePin = AnalogPin.P0;
         if (pin == LINE_FOLLOWER_PINS.P1) {
             linePin = AnalogPin.P1;
