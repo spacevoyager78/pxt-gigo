@@ -43,6 +43,13 @@ enum LINE_FOLLOWER_PINS {
     P16
 }
 
+enum LINE_FOLLOWER_STATES {
+    //% block="βλέπει"
+    HIGH = 1,
+    //% block="δεν βλέπει"
+    LOW = 0
+}
+
 enum LED_PORTS {
     B,
     C,
@@ -141,11 +148,11 @@ namespace spacevoyager78_gigo {
         return pins.digitalReadPin(buttonPin) == 0;
     }
     
-    //% blockId="LineFollowed" block="Αισθητήρας γραμμής θύρα %pin πατάει γραμμή"
+    //% blockId="LineFollowed" block="Αισθητήρας γραμμής θύρα %pin %state% μαύρη γραμμή"
     //% pin.fieldEditor="gridpicker" pin.fieldOptions.columns=4
     //% pin.fieldOptions.tooltips="false" pin.fieldOptions.width="300"
     //% pin.defl=LINE_FOLLOWER_PINS.P1
-    export function LineIsFollowed(pin: LINE_FOLLOWER_PINS): boolean {
+    export function LineIsFollowed(pin: LINE_FOLLOWER_PINS, state: LINE_FOLLOWER_STATES): boolean {
         let linePin = DigitalPin.P0;
         if (pin == LINE_FOLLOWER_PINS.P1) {
             linePin = DigitalPin.P1;
@@ -164,7 +171,7 @@ namespace spacevoyager78_gigo {
         } else if (pin == LINE_FOLLOWER_PINS.P16) {
             linePin = DigitalPin.P16;
         }
-        return pins.digitalReadPin(linePin) == 1;
+        return pins.digitalReadPin(linePin) == state;
     }
     
     //% blockId="ServoAngle" block="Σέρβο θύρα %pin γωνία %angle"
