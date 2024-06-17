@@ -224,4 +224,50 @@ namespace spacevoyager78_gigo {
         pins.analogWritePin(directionPin, direction);
         pins.analogWritePin(speedPin, pins.map(speed, 0, 100, 0, 1023));       
     }
+
+    //% blockId="TwoDigitNumber" block="Εμφάνισε διψήφιο αριθμό %n"
+    //% n.min=0 n.max=99 n.defl=0
+    export function ShowTwoDigitNumber(n: number): void {
+        if (n < 0 || n > 99) {
+            basic.showNumber(n);
+        	return;
+        }
+        // στοιχεία 0-4: 1η στήλη led
+        // στοιχεία 5-9: 2η στήλη led
+        // [(0 <= x <= 1) ή (3 <= x <= 4)] και (0 <= y <= 4)
+        const matrix = [
+            [1,1,1,1,1,1,1,1,1,1], // 0
+            [0,0,0,0,0,1,1,1,1,1], // 1
+            [1,0,1,1,1,1,1,1,0,1], // 2
+            [1,0,1,0,1,1,1,1,1,1], // 3
+            [1,1,1,0,0,0,0,1,1,1], // 4
+            [1,1,1,0,1,1,0,1,1,1], // 5
+            [1,1,1,1,1,1,0,1,1,1], // 6
+            [1,0,0,0,0,1,1,1,1,1], // 7
+            [1,1,0,1,1,1,1,0,1,1], // 8
+            [1,1,1,0,1,1,1,1,1,1]  // 9
+        ];
+        const [digit1, digit2] = n.toString().padStart(2, '0').split('').map(x => parseInt(x));
+        for (let x = 0; x <= 1; x++) {
+            for (let y = 0; y <= 4; y++) {
+                if (digit1 != 0 && matrix[digit1][(x * 5) + y] == 1) {
+                    led.plot(x, y);
+                } else {
+                    led.unplot(x, y);
+                }
+            }
+        }
+        for (let y = 0; y <= 4; y++) {
+            led.unplot(2, y);
+        }
+        for (let x = 3; x <= 4; x++) {
+            for (let y = 0; y <= 4; y++) {
+                if (matrix[digit2][((x - 3) * 5) + y] == 1) {
+                    led.plot(x, y);
+                } else {
+                    led.unplot(x, y);
+                }
+            }
+        }
+    }
 }
