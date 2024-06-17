@@ -247,7 +247,15 @@ namespace spacevoyager78_gigo {
             [1,1,0,1,1,1,1,0,1,1], // 8
             [1,1,1,0,1,1,1,1,1,1]  // 9
         ];
-        const [digit1, digit2] = n.toString().padStart(2, '0').split('').map(x => parseInt(x));
+        let digit1, digit2;
+        const digits = n.toString().split('');
+        if (digits.length == 2) {
+            digit1 = parseInt(digits[0]);
+            digit2 = parseInt(digits[1]);
+        } else {
+            digit1 = 0;
+            digit2 = parseInt(digits[0]);
+        }
         for (let x = 0; x <= 1; x++) {
             for (let y = 0; y <= 4; y++) {
                 if (digit1 != 0 && matrix[digit1][(x * 5) + y] == 1) {
